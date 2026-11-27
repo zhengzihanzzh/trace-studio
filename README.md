@@ -4,11 +4,11 @@
 
 ## 本地运行
 
-准备 Node.js 22 和 pnpm，然后在解压后的工程目录运行：
+准备 Node.js 22。仓库同时带 `pnpm-lock.yaml` 和 `package-lock.json`，pnpm、npm 任一都能装（下面给 npm 命令，用 pnpm 时对应替换）：
 
 ```bash
-pnpm install --frozen-lockfile
-pnpm run dev
+npm install
+npm run dev
 ```
 
 终端会显示本地访问地址，通常为 `http://localhost:5173`。如端口被占用，以终端实际地址为准。页面中的“演示数据”可直接体验功能。
@@ -16,19 +16,37 @@ pnpm run dev
 ## 测试和构建
 
 ```bash
-pnpm test
-pnpm run build
+npm test
+npm run build
 ```
 
 构建输出在 `dist/`，可交给静态网站服务部署。请通过 HTTP 服务访问，不要双击源码 `index.html`；直接使用 `file://` 打开构建目录也可能受到浏览器模块与 Worker 限制。
 
-若希望在本机查看构建版本：
+若希望在本机查看构建版本（用 pnpm 时把 `pnpm exec` 换成 `npx`）：
 
 ```bash
 pnpm exec vite preview --host 127.0.0.1
 ```
 
 按终端提示打开地址。源码中的开发命令绑定所有网络接口；只想本机访问时可使用 `pnpm exec vite --host 127.0.0.1`。
+
+## 上手三步
+
+1. 打开或粘贴 JSON / JSONL：页面顶部「打开」选文件，或点「粘贴」贴文本；JSON 整段算一条，JSONL 每行一条。想先看效果，用欢迎页的「演示数据」。
+2. 看轨迹：中间「执行轨迹」栏按角色渲染，USER 靠右、ASSISTANT 靠左，工具调用单独成块；左侧选题导航按条切换记录。
+3. 配结果栏：在原始 JSON 树里把某个字段点「结果1 / 结果2」，右侧就按结构树展示；字段值是 message_index（或配置过的 round_index 等别名）时会渲染成蓝色 M# 链接，点击跳到轨迹对应的一条。
+
+## 发布更新
+
+改完源码后重新构建并覆盖线上链接（链接固定不变）：
+
+```bash
+npm run build
+python3 scripts/build-singlefile.py dist TraceStudio.html
+lark-cli apps +deploy --file-path ./TraceStudio.html --app-id app_17jvpvuq13n
+```
+
+发布是异步的，用 `lark-cli apps +release-get --app-id app_17jvpvuq13n --release-id <id>` 轮询到 `status=finished`。没有内网 CLI 时，把这个单文件 HTML 直接传到任意静态托管即可。
 
 ## 工程结构
 
