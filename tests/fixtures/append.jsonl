@@ -1,0 +1,2 @@
+{"id":"single-json","messages":[{"role":"user","content":"重复 ID，但这是追加文件中的独立记录。"}],"result":{"message_index":0}}
+{"id":"append-002","inputs":{"messages":[{"role":"user","content":"第二条追加记录"}]} }

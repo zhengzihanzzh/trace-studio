@@ -1,0 +1,75 @@
+{
+  "id": "media-check",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "原生完整图片"
+        },
+        {
+          "type": "tool_result",
+          "tool_use_id": "c7",
+          "content": [
+            {
+              "type": "image",
+              "source": {
+                "type": "base64",
+                "media_type": "image/png",
+                "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aN1cAAAAASUVORK5CYII="
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "[tool_result] [image] {\"type\":\"image\",\"source\":{\"type\":\"base64\",\"media_type\":\"image/png\",\"data\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aN1cAAAAASUVORK5CYII=\"}}"
+    },
+    {
+      "role": "tool",
+      "content": "[tool_result] [image] {\"type\":\"image\",\"source\":{\"type\":\"base64\",\"media_type\":\"image/png\",\"data\":\"/9j/...[truncated 81091 chars].../Z\"}}"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "name": "Read",
+          "input": {
+            "path": "x"
+          }
+        },
+        {
+          "type": "text",
+          "text": "调用后返回"
+        },
+        {
+          "type": "image",
+          "source": {
+            "type": "base64",
+            "media_type": "image/png",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aN1cAAAAASUVORK5CYII="
+          }
+        }
+      ]
+    }
+  ],
+  "result": {
+    "call_index": 7,
+    "message_index": 1,
+    "note": "复制内容校验"
+  },
+  "tool_call_records": [
+    {
+      "工具": "Read",
+      "call_index": 7,
+      "message_index": 1,
+      "参数": {
+        "path": "x"
+      }
+    }
+  ]
+}

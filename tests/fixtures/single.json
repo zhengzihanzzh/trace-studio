@@ -1,0 +1,9 @@
+{
+  "id": "single-json",
+  "messages": [
+    { "role": "user", "content": "这是单条 JSON，中文🌳和缩进都保留。" },
+    { "role": "assistant", "content": [ { "type": "tool_use", "name": "Bash", "input": { "command": "pwd", "description": "查看路径" } } ] },
+    { "role": "tool", "content": "[tool_result:call-test]\n{\"status\":\"ok\",\"path\":\"/workspace/test\"}" }
+  ],
+  "result": { "message_index": 2, "success": true }
+}

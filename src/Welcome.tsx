@@ -1,0 +1,15 @@
+import { FileJson, FileUp, GitBranch, Layers3, LockKeyhole, MessagesSquare, Play, Upload } from 'lucide-react';
+export function Welcome({ choose, onDemo, onPaste, busy, progress, count, onCancel, error }: { choose: () => void; onDemo: () => void; onPaste: () => void; busy: boolean; progress: number; count: number; onCancel: () => void; error: string }) {
+  return <main className="welcome">
+    <div className="welcome-intro"><div className="eyebrow"><span />BROWSER-LOCAL WORKSPACE</div><h1>读懂每一条轨迹<span>从原始 JSON，到清晰对话。</span></h1><p>打开 JSON 或 JSONL，自由选择轨迹与结果字段。原始结构、执行对话与评测结果，在一个工作台里并排查看。</p></div>
+    <div className="welcome-grid"><section className="upload-card"><div className="upload-symbol"><FileUp size={34} strokeWidth={1.4} /></div><h2>{busy ? '正在建立记录索引' : '把 JSON / JSONL 拖到这里'}</h2><p>{busy ? `已发现 ${count.toLocaleString()} 条记录 · ${Math.round(progress)}%` : 'JSON 单条记录 · JSONL 多条记录 · 新文件可替换或追加'}</p>
+      {busy ? <><div className="progress-track"><div style={{ width: progress + '%' }} /></div><button className="secondary-button mt-5" onClick={onCancel}>取消解析</button></> : <><button className="primary-button" onClick={choose}><Upload size={16} />选择 JSON / JSONL 文件</button><div className="upload-alternatives"><button onClick={onPaste}>粘贴 JSONL</button><span>·</span><button onClick={onDemo}><Play size={13} />体验演示数据</button></div></>}
+      <div className="privacy"><LockKeyhole size={13} />文件内容只在本页本地解析，不上传服务器</div>{error && <div role="alert" className="notice mt-4">{error}</div>}
+    </section><section className="preview-card" aria-label="功能预览"><div className="preview-top"><span className="mini-dots"><i /><i /><i /></span><span>原始结构与渲染预览</span><span className="pill">双视图</span></div>
+      <div className="preview-columns"><div className="preview-json"><span className="text-slate-400">&#123;</span><p><b>id</b>: <span>"example-001"</span></p><p><b>messages</b>: [</p><div className="preview-tree-item">▸ 0 <em className="system">SYSTEM</em></div><div className="preview-tree-item">▸ 1 <em className="user">USER</em></div><div className="preview-tree-item">▸ 2 <em className="assistant">ASSISTANT</em></div><p>],</p><p><b>result</b>: &#123; 3 个字段 &#125;</p><span className="text-slate-400">&#125;</span><div className="preview-label"><FileJson size={13} />保留每一个原始 key</div></div>
+        <div className="preview-chat"><span className="preview-role">USER</span><div className="preview-user">请帮我检查这条执行轨迹。</div><span className="preview-role left">ASSISTANT</span><div className="preview-assistant">已经定位到调用过程。<br /><span className="preview-code">message_index: <i>M#2 ↗</i></span></div><div className="preview-label"><MessagesSquare size={13} />按角色渲染，点击索引定位</div></div></div>
+    </section></div>
+    <section className="feature-strip"><div><MessagesSquare size={20} /><h3>多种轨迹结构</h3><p>messages、inputs、嵌套消息与 JSON 字符串；未知输入保留原文。</p></div><div><Layers3 size={20} /><h3>字段自由配置</h3><p>只看轨迹，或同时打开两个结果栏；按你的习惯排列顺序。</p></div><div><GitBranch size={20} /><h3>从结果回到证据</h3><p>独立搜索、层级展开与 M / C 索引跳转，让复核更连贯。</p></div></section>
+    <footer className="welcome-foot">UTF-8 · JSON 整体一条（含数组根） · JSONL 每行一条 · 异常保留提示<span>在线预览 · 无需安装</span></footer>
+  </main>;
+}

@@ -1,0 +1,6 @@
+{
+    "app_name": "jsonl-trace-studio",
+    "app_description": "通用 JSONL 轨迹预览工具，浏览器本地解析，原始 JSON 树、字段配置和对话渲染",
+    "capabilities": [],
+    "datasources": {}
+}

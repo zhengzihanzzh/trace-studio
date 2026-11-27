@@ -1,0 +1,18 @@
+{
+  "id": "轮次别名验证",
+  "messages": [
+    { "role": "system", "content": "系统消息，原始message_index为0。" },
+    { "role": "user", "content": "请查看执行轨迹。" },
+    { "role": "assistant", "content": "准备检查。" },
+    { "role": "tool", "content": "工具返回完成。" },
+    { "role": "assistant", "content": "目标消息四：应以黄色粗边框定位。" },
+    { "role": "user", "content": "目标消息五：用于数组索引及方括号测试。" }
+  ],
+  "result": {
+    "summary": "访问工具页面(round_index=4)，得到回复(round_index=5)。默认 message_index=2 也应可跳转。",
+    "round_index": [4, 5],
+    "custom": "自定义[xxx]=4，未具名引用[5]，call_index=[7]仍需为紫色调用跳转。",
+    "invalid": "round_index=-1，round_index=1.5，round_index=99（超出范围应提示），file_index=3不识别。"
+  },
+  "tool_call_records": [{ "call_index": 7, "name": "验证调用记录", "message_index": 3 }]
+}
