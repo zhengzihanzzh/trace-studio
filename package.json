@@ -1,6 +1,7 @@
 {
   "name": "jsonl-trace-studio",
   "private": true,
+  "license": "MIT",
   "version": "1.0.0",
   "type": "module",
   "scripts": { "dev": "vite --host 0.0.0.0", "build": "tsc --noEmit && vite build", "test": "tsx --test tests/*.test.ts" },

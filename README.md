@@ -4,10 +4,10 @@
 
 ## 本地运行
 
-准备 Node.js 22。仓库同时带 `pnpm-lock.yaml` 和 `package-lock.json`，pnpm、npm 任一都能装（下面给 npm 命令，用 pnpm 时对应替换）：
+准备 Node.js 22。仓库同时带 `pnpm-lock.yaml` 和 `package-lock.json`，pnpm、npm 任一都能装（推荐使用下方 npm 命令）：
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -22,10 +22,10 @@ npm run build
 
 构建输出在 `dist/`，可交给静态网站服务部署。请通过 HTTP 服务访问，不要双击源码 `index.html`；直接使用 `file://` 打开构建目录也可能受到浏览器模块与 Worker 限制。
 
-若希望在本机查看构建版本（用 pnpm 时把 `pnpm exec` 换成 `npx`）：
+若希望在本机查看构建版本：
 
 ```bash
-pnpm exec vite preview --host 127.0.0.1
+npx vite preview --host 127.0.0.1
 ```
 
 按终端提示打开地址。源码中的开发命令绑定所有网络接口；只想本机访问时可使用 `pnpm exec vite --host 127.0.0.1`。
@@ -36,17 +36,9 @@ pnpm exec vite preview --host 127.0.0.1
 2. 看轨迹：中间「执行轨迹」栏按角色渲染，USER 靠右、ASSISTANT 靠左，工具调用单独成块；左侧选题导航按条切换记录。
 3. 配结果栏：在原始 JSON 树里把某个字段点「结果1 / 结果2」，右侧就按结构树展示；字段值是 message_index（或配置过的 round_index 等别名）时会渲染成蓝色 M# 链接，点击跳到轨迹对应的一条。
 
-## 发布更新
+## 部署
 
-改完源码后重新构建并覆盖线上链接（链接固定不变）：
-
-```bash
-npm run build
-python3 scripts/build-singlefile.py dist TraceStudio.html
-lark-cli apps +deploy --file-path ./TraceStudio.html --app-id app_17jvpvuq13n
-```
-
-发布是异步的，用 `lark-cli apps +release-get --app-id app_17jvpvuq13n --release-id <id>` 轮询到 `status=finished`。没有内网 CLI 时，把这个单文件 HTML 直接传到任意静态托管即可。
+执行 `npm run build` 后，将 `dist/` 部署到静态网站服务。下文也提供单文件构建方式。
 
 ## 工程结构
 
@@ -93,3 +85,7 @@ python3 scripts/build-singlefile.py dist TraceStudio.html
 
 - 公开链接：https://bytedance.doubao.link/app/app_17jvpvuq13n
 - 打包产物不入库，`dist/` 与 `node_modules/` 已在 `.gitignore` 中忽略；需要时按上面命令重新构建。
+
+## 许可证
+
+项目源码采用 [MIT](LICENSE)。第三方代码保留其原许可证，见 [第三方许可](THIRD_PARTY_NOTICES.txt)。
